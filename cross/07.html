@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./ajax3.js"></script>
+    <script>
+        // ajax({
+        //     type: 'get',
+        //     // url:'http://tom.com/jsonp.php',
+        //     url: 'http://localhost/cross/data1.php',
+        //     dataType: 'json',
+        //     success: function (data) {
+        //         console.log(data.username, data.password);
+        //     }
+        // });
+        ajax({
+            url: "http://tweb.com/jsonp.php",
+            dataType: 'json',
+            data: { username: "zhangsan", password: '123456' },
+            jsonp: 'cb',
+            jsonpCallback: 'abc',
+            success: function (data) {
+                console.log(data);
+                console.log(data.username);
+                console.log(data.password);
+            }
+        })
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

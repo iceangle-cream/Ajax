@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登录</title>
+    <script>
+        /*
+    隐藏帧实现局部更新，实际上ifrme就相当于页面的子页面
+    */
+    </script>
+</head>
+
+<body>
+    <div>
+        <form action="./iframe.php" method="POST" target="myframe">
+            用户名：<input type="text" name="username"> <span id="info"></span> <br>
+            密码：<input type="text" name="password">
+            <input type="submit" value="登录">
+        </form>
+    </div>
+    <iframe width="0px" height="0px" src="" frameborder="1" name="myframe"></iframe>
+</body>
+
+</html>

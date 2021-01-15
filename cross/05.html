@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript" src="./jquery.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('#btn').click(function () {
+                $.ajax({
+                    type: 'get',
+                    url: 'http://tweb.com/jsonp.php',
+                    dataType: 'jsonp',
+                    jsonp: 'cb', //jsonp属性作用自定义参数名字callback=abc 名字指的是等号前面的键，后端根据键获取方法名
+                    // jquery获取的参数名默认callback
+                    jsonpCallback: 'abc',// 这个属性的作用就是自定义回调函数的名字callback=abc 指的是等号后边的值
+                    data: {},
+                    success: function (data) {
+                        console.log(data.username);
+                        console.log(data.password);
+                    },
+                    error: function (data) {
+                        console.dir(data);
+                        console.log('error');
+                    }
+
+                })
+            })
+
+        })
+    </script>
+</head>
+
+<body>
+    <input type="button" value="点击" id="btn">
+</body>
+
+</html>

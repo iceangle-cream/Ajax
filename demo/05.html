@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>创建XMLHttpRequest对象</title>
+    <script>
+        /*
+    xml数据格式
+
+    元数据：描述数据的数据
+
+    这种数据格式的弊端：
+    1、元数据占用的数据量比较大，不利于大量数据的网络传输
+    2、解析不太方便
+    */
+        window.onload = function () {
+            var btn = document.getElementById('btn');
+            btn.onclick = function () {
+                var uname = document.getElementById('username').value;
+                var pw = document.getElementById('password').value;
+                // 使用Ajax发送请求需要如下几步：
+                // 1、创建XMLHttpRequest对象
+                // var xhr = new XMLHttpRequest(); // 标准浏览器
+                // var xhr = new ActiveXObject("Microsoft.XMLHTTP"); //IE6
+                // console.log(xhr);
+                var xhr = null;
+                if (window.XMLHttpRequest) {
+                    xhr = new XMLHttpRequest();
+                } else {
+                    xhr = new ActiveXObject("Microsoft"); //IE6
+                }
+                // readyState = 0表示xhr对象创建完成
+                console.log(xhr.readyState + '--------1---------');
+                /*  try {
+                     xhr = new XMLHttpRequest();
+                 } catch (e) {
+                     xhr = new ActiveXObject("Microsoft");
+                 } */
+                // 2、准备发送
+                var param = 'username=' + uname + '&password=' + pw;
+                // xhr.open('get', './02get.php?username=' + uname + '&password=' + pw, true);
+                xhr.open('post', './03post.php', true);
+                // 3、执行发送动作
+                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
+                xhr.send(param); // post请求参数在这里传递，不需要转码
+                // 4、 指定回调函数
+                // readyState = 1表示xhr已经发送了请求
+                console.log(xhr.readyState + '--------1---------');
+                // 该函数调用的条件就是readyState状态发生了变化
+                xhr.onreadystatechange = function () {
+                    console.log(xhr.readyState + '--------1---------');
+                    if (xhr.readyState == 4) {
+                        if (xhr.status == 200) {
+                            alert(xhr.responseText);
+                            //xhr.responseXML
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <form>
+        用户名：<input type="text" name="username" id="username"> <span id="info"></span> <br>
+        密码：<input type="text" name="password" id="password">
+        <input type="button" value="登录" id="btn">
+    </form>
+</body>
+
+</html>

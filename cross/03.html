@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript">
+        /*
+        动态创建script标签发出去的请求是异步请求 
+        服务器响应的内容是【函数调用】 foo(实参)
+         */
+        var script = document.createElement('script');
+        script.src = 'http://tweb.com/data.php？flag=' + flag;
+        var head = document.getElementsByTagName('head')[0];
+        head.appendChild(script);
+        // 这里的foo函数由服务器响应的内容（这里的内容就是js代码）调用
+        function foo(data) {
+            console.log(data);
+            console.log(data.username);
+            console.log(data.password);
+        }
+        // console.log(data);
+    </script>
+</head>
+
+<body>
+    <input type="button" value="点击">
+</body>
+
+</html>

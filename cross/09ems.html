@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #container {
+            width: 500px;
+            min-height: 300px;
+            /* background-color: aqua; */
+            margin: auto;
+            text-align: center;
+            padding: 10px;
+        }
+
+        #container li {
+            margin: 0;
+        }
+
+        #container li {
+            list-style: none;
+            /* background-color: brown; */
+            text-align: left;
+            padding-left: 45px;
+            /* height: 25px; */
+            /* line-height: 25px; */
+            /* cursor: pointer; */
+        }
+    </style>
+    <script src="./jquery.js"></script>
+    <script>
+        $(function () {
+            $('#btn').click(function () {
+                var code = $('#code').val();
+                $.ajax({
+                    // url: 'https://express.baidu.com/express/api/express',
+                    url: 'http://localhost/cross/ems.php',
+                    data: { code: code },
+                    jsonp: 'cb',
+                    dataType: 'jsonp',
+                    success: function (data) {
+                        console.log(data);
+                        if (data.data.info.status == 0) {
+                            $('#info').html(data.msg);
+                            return;
+                        }
+                        var ems = data.data.info.context;
+                        console.log(ems);
+                        var tag = '<ul>';
+                        $.each(ems, function (i, e) {
+                            var time = e.time;
+                            // 当前时间
+                            var t = new Date();
+                            console.log(t);
+                            console.dir(t);
+                            console.log(t.getDay());
+                            // 得到毫秒数
+                            // t.setTime(time + '000');
+                            // console.log(t.setTime(time + '000'));
+                            console.log(t.getDay());
+                            // 2015年12月12日 上午10:39:20
+                            var date = t.getFullYear() + '年' + (t.getMonth() + 1) + '月' + t.getDay() + '日' + (t.getHours() > 12 ? ' 下午' : ' 上午') + (t.getHours() % 12) + ':' + t.getMinutes() + ':' + t.getSeconds();
+                            tag += '<li><div>' + date + '</div><div>' + e.desc + '</div></li>'
+                        });
+                        tag += '</ul>';
+                        $("#info").html(tag);
+
+                    }
+
+                })
+
+            })
+
+        })
+    </script>
+</head>
+
+<body>
+    <div id="container">
+        快递单号：<input type="text" name="code" id="code">
+        <input type="button" value="查询" id="btn">
+        <div id="info"></div>
+    </div>
+</body>
+
+</html>
+<!-- https://express.baidu.com/express/api/express?query_from_srcid=&isBaiduBoxApp=10002&isWisePc=10020&tokenV2=mEF88-LwTNtswavEOPPpIPQ3_yfdxgXO_nzHsttf-Fq_XPDMDqDDw8rWNvehSHEA&cb=jQuery11020033837295418051694_1610451200360&appid=4001&com=ems&nu=9881371179604&vcode=&token=&qid=d110e8f70005de87&_=1610451200380 -->
